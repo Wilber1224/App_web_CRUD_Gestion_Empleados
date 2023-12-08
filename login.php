@@ -1,33 +1,46 @@
 <?php
-    session_start();
+session_start();
+if($_POST){
 
-    if ($_POST) {
-        
-        include("./bd.php");
+    $usuario = $_POST["usuario"] ?? null;
+    $contrasenia = $_POST["contrasenia"] ?? null;
 
-        $usuario = $_POST["usuario"];
-        $contrasenia = $_POST["contrasenia"];
-    // voy a contabilizar cuantos registros hay ,count(*)... y lo voy a poner como (as)...n_usuarios dentro de la tabla...
+    if(empty($usuario) || empty($contrasenia)){
+        $mensaje = "Los campos usuario y contraseña son obligatorios";
+    }else{
+
+    include("./bd.php");
+    $sentencia = $conexion->prepare("SELECT * FROM tb_usuarios WHERE usuario = :usuario");
+    $sentencia->bindParam(":usuario", $usuario);
+    $sentencia->execute();
+    if($sentencia->rowCount() == 0){
+        $mensaje = "El usuario no existe";
+    }else{
         $sentencia = $conexion->prepare("SELECT *, COUNT(*) as n_usuarios 
             FROM `tb_usuarios` 
             WHERE usuario = :usuario 
             AND contraseña = :contrasenia");
+            
         $sentencia->bindParam(":usuario", $usuario);
-        $sentencia->bindParam(":contrasenia", $contrasenia);
-    
+        $sentencia->bindParam(":contrasenia", $contrasenia);  
         $sentencia->execute();
-    
+        
         $registro = $sentencia->fetch(PDO::FETCH_LAZY);
-        if($registro["n_usuarios"]>0){
+        
+        if($registro["n_usuarios"] > 0){
             $_SESSION['usuario']=$registro["usuario"];
             $_SESSION['logueado']=true;
             header("location:index.php");
-
         }else{
-            $mensaje="Error: El usuario o contraseña son incorrectas";
+            $mensaje="Datos de acceso incorrectos"; 
         }
 
     }
+
+}
+
+}
+
     
 
 
