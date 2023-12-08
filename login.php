@@ -38,7 +38,7 @@
             background: url(img/fondo_login.webp);            
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-size: 1400px; 
+            background-size: 110%; 
         }
 </style>
 <!DOCTYPE html>
