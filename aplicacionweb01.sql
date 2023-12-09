@@ -37,6 +37,7 @@ CREATE TABLE `tb_empleados` (
   `cv` varchar(255) DEFAULT NULL,
   `idpuesto` int(11) DEFAULT NULL,
   `fechadeingreso` date DEFAULT NULL
+  FOREIGN KEY (`idpuesto`) REFERENCES `tb_puestos`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -50,6 +51,17 @@ INSERT INTO `tb_empleados` (`id`, `primernombre`, `segundornombre`, `primerapell
 (46, 'Norma', '', 'Sanchez', 'Genares', '1689062822_foto_emanuel.png', '1689062822_cv_norma.pdf', 35, '2023-07-21');
 
 -- --------------------------------------------------------
+--relacion de tb_empleados con tb_puestos
+SELECT 
+  e.id, 
+  e.primernombre,
+  e.segundornombre,
+  e.primerapellido,
+  e.segundoapellido,
+  p.nombredelpuesto
+FROM tb_empleados e 
+INNER JOIN tb_puestos p
+  ON e.idpuesto = p.id
 
 --
 -- Estructura de tabla para la tabla `tb_puestos`
