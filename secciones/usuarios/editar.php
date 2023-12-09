@@ -5,14 +5,24 @@
 
         $txtID=(isset($_GET['txtID']))?$_GET['txtID']:"";
     
-        $sentencia=$conexion->prepare("SELECT * FROM tb_usuarios WHERE id=:id");
-        $sentencia->bindParam(":id",$txtID);
+        $sentencia = $conexion->prepare("SELECT id, usuario, contraseña, correo, foto FROM tb_usuarios WHERE id = :id");
+        $sentencia->bindParam(":id", $txtID);
         $sentencia->execute();
-        $registro=$sentencia->fetch(PDO::FETCH_LAZY);
+        $registro = $sentencia->fetch(PDO::FETCH_LAZY);
 
         $usuario=$registro["usuario"];
         $contraseña=$registro["contraseña"];
         $correo=$registro["correo"];
+        $fotoActual = $registro['foto'];
+
+
+        if($fotoActual){
+            // muestra la foto del usuario si esta en la bd
+            echo "<img src='../../img/$fotoActual'>";
+          }else{
+            // si no tiene muestra una de defecto
+            echo "<img src='../../img/placeholder.png'>";
+          }
     
     }
     if($_POST){
@@ -101,7 +111,7 @@
     <div class="card-body d-flex align-items-center justify-content-center">
         <!-- Columna para la imagen -->
         <div class="text-center">
-            <img src="../../img/images.jpg" class="img-fluid" alt="Imagen" style="max-width: 100%; height: auto;">
+            <img src="<?php echo $fotoActual = "img/foto.jpg"; ?>" class="img-fluid" alt="Imagen" style="max-width: 100%; height: auto;">
         </div>
     </div>
         </div>

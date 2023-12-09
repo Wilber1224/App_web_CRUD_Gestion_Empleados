@@ -99,7 +99,8 @@ CREATE TABLE `tb_usuarios` (
   `id` int(11) NOT NULL,
   `usuario` varchar(255) DEFAULT NULL,
   `contraseña` varchar(255) DEFAULT NULL,
-  `correo` varchar(255) DEFAULT NULL
+  `correo` varchar(255) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
