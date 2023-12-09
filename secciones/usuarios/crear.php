@@ -86,11 +86,12 @@ if($_POST){
             class="form-control" name="correo" id="correo" aria-describedby="helpId" placeholder="Escriba su correo">
         </div>
 
-        
+        <!-- boton para subir la foto y almacenarla en la base de datos -->
         <div class="mb-3">
+
           <label for="foto" class="form-label">Foto:</label>
-          <input type="file"
-            class="form-control" name="foto" id="foto" aria-describedby="helpId" placeholder="Foto">
+          <button type="button" onclick="document.getElementById('foto').click()">Seleccionar Foto</button>
+          <input type="file" id="foto" name="foto" style="display:none">
         </div>
 
         <button type="submit" class="btn btn-success">Agregar</button>
